@@ -1,10 +1,11 @@
 # Features
 
-1. Scheduling task
-2. Reminders
-3. Inventory management
-4. History tracking
-5. Expense tracking
-6. Instruction links
-7. Instant notification
-8. User household management 
+1. Appliance Database
+2. Scheduling task
+3. Reminders
+4. Inventory management
+5. History tracking
+6. Expense tracking
+7. Instruction links
+8. Instant notification
+9. User household management 
