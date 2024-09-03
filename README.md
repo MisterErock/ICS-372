@@ -1,9 +1,8 @@
 # Home Maintenance Project
 
 ## Description
-Problem: Keeping track of home appliances maintenance due dates can be overwhelming.  
- 
-Solution: A digital application that will store your appliances information and remind us of when we need to do maintenance. 
+
+Keeping track of home appliances maintenance schedules can be a overwhelming, leading to missed servicing dates and potentially costly repairs. To address this issue, our digital application offers a seamless solution by storing detailed information about each appliance in your home, including purchase dates, warranty details, and recommended maintenance intervals. The app will provide timely reminders for upcoming maintenance tasks, ensuring that your appliances remain in optimal condition and reducing the risk of unexpected breakdowns. This user-friendly tool simplifies home management, giving you peace of mind by helping you stay on top of essential upkeep.
 
 ## Group Members
 
@@ -11,4 +10,3 @@ Solution: A digital application that will store your appliances information and 
 - Aaqil Jaffer <xm9363cy@go.minnstate.edu>
 - Asia Osman <xv2262gn@go.minnstate.edu>
 - Neeju Singh <neeju.singh@my.metrostate.edu>
-- Jimmie Xiong <jxiong@stcloudstate.edu>
