@@ -1,8 +1,9 @@
-# PROJECT
+# Home Maintenance Project
 
 ## Description
-
-This application is going to be a GUI.
+Problem: Keeping track of home appliances maintenance due dates can be overwhelming.  
+ 
+Solution: A digital application that will store your appliances information and remind us of when we need to do maintenance. This application is going to be a GUI. 
 
 ## Group Members
 
