@@ -1,21 +1,18 @@
 # House Checkup Project
 
 ## Description
+Many homeowners struggle with managing their home appliances systematically, often resulting in overlooked maintenance and unexpected breakdowns.
 
-Problem:
-Many homeowners lack a systematic approach to managing their home appliances, which often leads to overlooked maintenance and unexpected breakdowns.
+The Consequences of Neglecting Home Appliance Management:
 
-Consequences of Neglected Home Appliance Management:
+Increased Costs: Emergency repairs and premature appliance replacements can lead to significant financial strain.
 
-Increased costs due to emergency repairs and premature replacement of appliances.
-Loss of efficiency and higher energy consumption, leading to increased utility bills.
+Loss of Efficiency: Neglected appliances often consume more energy, driving up utility bills.
 
-Solution:
-There is a clear need for an intuitive, accessible platform that makes appliance maintenance manageable and straightforward. HC aims to fill this gap by providing tools for:
-
-Tracking appliance status and maintenance history.
-Scheduling regular maintenance tasks.
-Educating users on proper appliance care and management.
+There's a clear need for an intuitive, user-friendly platform that simplifies appliance maintenance. HC is designed to meet this need, providing essential tools for:
+- Tracking appliance status and maintenance history.
+- Scheduling regular maintenance tasks.
+- Educating users on proper appliance care and management.
 
 ## Group Members
 
