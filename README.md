@@ -1,9 +1,21 @@
-# Home Maintenance Project
+# House Checkup Project
 
 ## Description
 
-Keeping track of home appliances maintenance schedules can be a overwhelming, leading to missed servicing dates and potentially costly repairs. To address this issue, our digital application offers a seamless solution by storing detailed information about each appliance in your home, including purchase dates, warranty details, and recommended maintenance intervals. 
-The app will provide timely reminders for upcoming maintenance tasks, ensuring that your appliances remain in optimal condition and reducing the risk of unexpected breakdowns. This user-friendly tool simplifies home management, giving you peace of mind by helping you stay on top of essential upkeep.
+Problem:
+Many homeowners lack a systematic approach to managing their home appliances, which often leads to overlooked maintenance and unexpected breakdowns.
+
+Consequences of Neglected Home Appliance Management:
+
+Increased costs due to emergency repairs and premature replacement of appliances.
+Loss of efficiency and higher energy consumption, leading to increased utility bills.
+
+Solution:
+There is a clear need for an intuitive, accessible platform that makes appliance maintenance manageable and straightforward. HC aims to fill this gap by providing tools for:
+
+Tracking appliance status and maintenance history.
+Scheduling regular maintenance tasks.
+Educating users on proper appliance care and management.
 
 ## Group Members
 
