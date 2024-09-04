@@ -2,7 +2,7 @@
 
 ## Home Page 
 
-The home page welcomes the user and offers two main options: Tutorial & Helpful Links and Devices List. A notification icon is also present, likely for maintenance reminders. 
+When the user logs in, they will see the first page of the House Checkup app. Here, they can choose to view a tutorial or see a list of devices they own. The app also includes an alert for reminders, so users will be notified about any upcoming maintenance tasks or important updates for their appliances. This makes it easy for homeowners to stay on top of their appliance management and maintenance.  
 
 ![Wireframe 1](./Wireframe1HP.png)
 
