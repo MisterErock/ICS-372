@@ -18,5 +18,5 @@ There's a clear need for an intuitive, user-friendly platform that simplifies ap
 
 - Elijah Nicholson <ac6239ys@go.minnstate.edu>
 - Aaqil Jaffer <xm9363cy@go.minnstate.edu>
-- Asia Osman <xv2262gn@go.minnstate.edu>
+- Asia Osman <xv2262gn@go.minnstate.edu>   Github name : AsiaOsman06
 - Neeju Singh <neeju.singh@my.metrostate.edu>
