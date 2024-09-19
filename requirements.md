@@ -204,3 +204,6 @@ N/A
 
 ### Alternative flow 2 
 N/A 
+
+# Use Case Diagram
+![UseCaseDiagram](./UseCaseDiagram.jpg)
