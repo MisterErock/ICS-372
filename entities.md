@@ -38,12 +38,4 @@ The ServiceRecord entity keeps track of maintenance and repair history for each 
 
 date of service, type of service, and any associated costs. 
 
-  
-
-6. Menu 
-
-The Menu entity represents the navigation structure of the application, allowing users to access 
-
-different features and pages. 
-
  
