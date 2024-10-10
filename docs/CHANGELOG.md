@@ -13,6 +13,6 @@
 
 
 # Milestone 3
-[Asia Osman]
+[Asia Osman,Neeju Singh]
 - Extended the class diagram to implement MVC architecture for the House Checkup Application. Added Model, View, and Controller classes for Device, Notification, Tutorial, and ServiceRecord components. 
 - Created new relationships between these MVC components and the existing core entities. 
