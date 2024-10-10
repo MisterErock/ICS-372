@@ -58,4 +58,4 @@ models but does not own them.
 
 
 
-                                   ### **Figure: MVC class Diagram**
+                                      Figure: MVC class Diagram
