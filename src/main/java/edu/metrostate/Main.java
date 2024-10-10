@@ -2,23 +2,29 @@ package edu.metrostate;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;  // Use VBox instead of StackPane
 import javafx.stage.Stage;
+import edu.metrostate.views.NotificationView;
+import edu.metrostate.controllers.NotificationController;
+import edu.metrostate.models.Notification;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
-        stage.setTitle("Hello World");
+    public void start(Stage primaryStage) {
+        NotificationView notificationView = new NotificationView();
+        NotificationController notificationController = new NotificationController(new Notification(), notificationView);
 
-        StackPane root = new StackPane();
+        // Get the VBox root pane from NotificationView
+        VBox root = notificationView.getRootPane();  // Correctly using VBox here
+        Scene scene = new Scene(root, 800, 600);
 
-        Button button = new Button();
-        button.setText("Button");
-        root.getChildren().add(button);
+        primaryStage.setTitle("Appliance Management System");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-        stage.setScene(new Scene(root, 300, 300));
-        stage.show();
+    public static void main(String[] args) {
+        launch(args);
     }
 }
