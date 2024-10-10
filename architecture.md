@@ -8,12 +8,8 @@ This class diagram illustrates the main entities in the **House Checkup** applic
 
 The class diagram includes the following classes and their relationships:
 
-### **User**
-- **Attributes**: `userId`, `name`, `email`, `password`
-- **Methods**: `addDevice()`, `viewDevices()`, `updateProfile()`
-- **Relationships**: One-to-Many with **Device**
 
-### **Device**
+### **Appliances**
 - **Attributes**: `deviceId`, `name`, `type`, `purchaseDate`, `lastServiceDate`, `nextServiceDueDate`
 - **Methods**: `updateDetails()`, `scheduleService()`
 - **Relationships**: Many-to-One with **User**, One-to-Many with **ServiceRecord**
@@ -23,81 +19,42 @@ The class diagram includes the following classes and their relationships:
 - **Methods**: `send()`, `markAsRead()`
 - **Relationships**: Many-to-One with **User**, Many-to-One with **Device**
 
-### **Tutorial**
+### **AppliencesList**
 - **Attributes**: `tutorialId`, `title`, `content`, `videoUrl`
 - **Methods**: `view()`, `rate()`
 
-### **ServiceRecord**
-- **Attributes**: `recordId`, `deviceId`, `serviceDate`, `serviceType`, `cost`
-- **Methods**: `addRecord()`, `viewHistory()`
-- **Relationships**: Many-to-One with **Device**
-
-### **Menu**
-- **Attributes**: `menuId`, `name`, `link`
-- **Methods**: `navigate()`
-
----
-
-## **Manager Classes**
-
-The manager classes handle business logic and interact with DAOs for database operations.
-
-### **Device Manager**
-- **Responsibilities**: 
-  - Interacts with `DeviceDAO` to manage devices.
-  - Business logic for `updateDetails()`, `scheduleService()`.
-  - Coordinates actions between `ServiceManager` and `NotificationManager` for scheduled services.
-
-### **Notification Manager**
-- **Responsibilities**: 
-  - Handles notifications, interacting with the `NotificationDAO` to send and mark notifications as read.
-  - Coordinates between `DeviceManager` and `User` to deliver relevant alerts and reminders.
-
-### **Tutorial Manager**
-- **Responsibilities**: 
-  - Fetches and manages tutorials.
-  - Interacts with `TutorialDAO` for database operations.
-  - Handles business logic for `view()`, `rate()` methods.
-
-### **Service Manager**
-- **Responsibilities**: 
-  - Manages service records by interacting with `ServiceDAO`.
-  - Business logic for `addRecord()` and `viewHistory()`.
-
----
-
-## **DAO Classes**
-
-The DAO (Data Access Object) classes handle the persistence of entities into the database, providing a clean separation between business logic and data access.
-
-### **DeviceDAO**
-- **Responsibilities**: 
-  - Database operations for devices, including fetching, updating, and storing device information.
-
-### **NotificationDAO**
-- **Responsibilities**: 
-  - Handles database operations related to notifications, such as saving sent notifications and retrieving unread messages.
-
-### **TutorialDAO**
-- **Responsibilities**: 
-  - Manages tutorial-related database transactions, including fetching tutorial content.
-
-### **ServiceDAO**
-- **Responsibilities**: 
-  - Handles service record persistence, allowing adding and retrieving historical service data for devices.
-
----
 
 ## **Relationships in the Class Diagram**
 
-- **User** has many **Devices**.
-- **Device** belongs to one **User** and has many **ServiceRecords**.
-- **Notification** is associated with one **User** and one **Device**.
-- **All managers** interact with their respective **DAOs** for database operations.
-- **DeviceManager**, **ServiceManager**, **TutorialManager**, and **NotificationManager** coordinate to ensure smooth functioning of the business logic.
-- The **Menu** class provides navigation between different sections of the application.
+Models:
+1. Appliance
+2. ApplianceList 3. Notification
+Views:
+1. AddApplianceView 2. ApplianceListView 3. NotificationView
+Controllers:
+1. ApplianceController
+2. NotificationController
+Relationships and UML Notations: 1. Controllers to Models (Dependency):
+● ApplianceController -> Appliance and ApplianceList
+○ a dotted line with a hollow arrow pointing from ApplianceController towards
+Appliance and ApplianceList. This indicates that the controller uses these
+models but does not own them. ● NotificationController -> Notification
+○ a dotted line with a hollow arrow pointing from NotificationController to Notification.
+2. Controllers to Views (Association):
+● ApplianceController -> ApplianceListView and AddApplianceView
+○ a solid line with a hollow arrow pointing from ApplianceController to
+ApplianceListView and AddApplianceView. This shows that the controller
+updates and manages these views. ● NotificationController -> NotificationView
+○ a solid line with a hollow arrow pointing from NotificationController to NotificationView.
+3. Model to Model (if any relationships are necessary):
+● If there are any direct interactions between models (e.g., Notification might need to reference Appliance to know which appliance a notification is for), draw:
+○ A solid line without arrows if it’s a bidirectional association or with arrows for unidirectional access. We used arrows as it is a unidirectional access.
+ApplianceList to Appliance (Aggregation):
+● Aggregation is used because ApplianceList acts as a container that can hold multiple Appliance objects but does not have exclusive ownership (i.e., Appliances can exist independently of ApplianceList).
+● Diagram Representation: a solid line with a hollow diamond at the ApplianceList end pointing towards Appliance. The multiplicity on the Appliance side would typically be 1..*, indicating that one ApplianceList can contain many Appliances.
+Appliance to Notification (Association):
+● Since Notifications might be triggered based on the state or events related to an Appliance (e.g., service due), you can establish a direct association. This could be a unidirectional association if Notifications need to reference Appliances (to get details about which appliance the notification is related to) but not necessarily the other way around.
+● Diagram Representation: a solid line with an arrow pointing from Notification to Appliance. The multiplicity would be 1..1 under typical scenarios, assuming each notification is specific to one appliance.
+https://github.com/MisterErock/ICS-372/blob/a41ba263e2785bd30fbb8b7be2efcd22c3e0e292/UML%20class%20Diagram.jpeg
 
-
-
- ![classDiagram2](https://github.com/user-attachments/assets/8b931751-0c15-4dfe-9288-afaae0a9b736)
 
