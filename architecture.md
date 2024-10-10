@@ -52,6 +52,10 @@ models but does not own them.
   * Since Notifications might be triggered based on the state or events related to an Appliance (e.g., service due), we can establish a direct association. This could be a unidirectional association if Notifications need to reference Appliances (to get details about which appliance the notification is related to) but not necessarily the other way around.
   * Diagram Representation: a solid line with an arrow pointing from Notification to Appliance. The multiplicity would be 1..1 under typical scenarios, assuming each notification is specific to one appliance.
 
+
+
 ![MVC_class_diagram](https://github.com/user-attachments/assets/04621914-bfc1-4e85-b7ab-21566246cedd)
 
 
+
+                                   ### **Figure: MVC class Diagram**
