@@ -17,6 +17,5 @@ There's a clear need for an intuitive, user-friendly platform that simplifies ap
 ## Group Members
 
 - Elijah Nicholson <ac6239ys@go.minnstate.edu> Github name: MisterErock
-- Aaqil Jaffer <xm9363cy@go.minnstate.edu>
 - Asia Osman <xv2262gn@go.minnstate.edu>   Github name: AsiaOsman06
 - Neeju Singh <neeju.singh@my.metrostate.edu> Github name: NEEJUSINGH
