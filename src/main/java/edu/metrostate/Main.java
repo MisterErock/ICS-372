@@ -1,30 +1,47 @@
 package edu.metrostate;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;  // Use VBox instead of StackPane
-import javafx.stage.Stage;
-import edu.metrostate.views.NotificationView;
-import edu.metrostate.controllers.NotificationController;
-import edu.metrostate.models.Notification;
+import edu.metrostate.controller.ApplianceController;
+import edu.metrostate.view.ApplianceListView;
+import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
-public class Main extends Application {
+public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    @Override
-    public void start(Stage primaryStage) {
-        NotificationView notificationView = new NotificationView();
-        NotificationController notificationController = new NotificationController(new Notification(), notificationView);
-
-        // Get the VBox root pane from NotificationView
-        VBox root = notificationView.getRootPane();  // Correctly using VBox here
-        Scene scene = new Scene(root, 800, 600);
-
-        primaryStage.setTitle("Appliance Management System");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public Main() {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        logger.log(Level.INFO, "Starting Appliance Manager application");
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to set Look and Feel", e);
+        }
+
+        SwingUtilities.invokeLater(() -> {
+            try {
+                ApplianceController controller = new ApplianceController();
+                JFrame frame = new JFrame("Appliance Manager");
+                frame.setDefaultCloseOperation(3);
+                frame.setSize(800, 600);
+                ApplianceListView listView = new ApplianceListView(controller);
+                frame.add(listView);
+                frame.setLocationRelativeTo((Component)null);
+                frame.setVisible(true);
+                logger.log(Level.INFO, "Application GUI initialized successfully");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Failed to initialize application", e);
+                JOptionPane.showMessageDialog((Component)null, "Failed to start application: " + e.getMessage(), "Error", 0);
+                System.exit(1);
+            }
+
+        });
     }
 }

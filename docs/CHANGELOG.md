@@ -23,12 +23,33 @@
 
 
 # Milestone 4
-[Asia Osman]
+[Asia Osman, Elijah Nicholson, Neeju Singh]
 
-- Added Tutorial.java class to manage individual tutorial data with properties for ID, title, content, video URL, and rating
-- Implemented TutorialModel.java to handle tutorial data storage and retrieval with sample HVAC and dishwasher tutorials
-- Created TutorialView.java with a complete GUI interface using Swing, featuring a tutorial list, content display, and video preview area
-- Developed TutorialController.java to manage interactions between the model and view components
-- Added rating functionality allowing users to rate tutorials on a 1-5 scale
-- Implemented video playback simulation with a mock player interface
-- Created Main.java to initialize and launch the application using SwingUtilities
+### Added
+- Initial release with core functionality
+- Add appliance feature
+    - Form interface
+    - Type selection
+    - Date picker
+    - Validation
+- View appliances feature
+    - List view
+    - Detail view
+    - Auto-updates
+- Database implementation
+    - SQLite integration
+    - Data persistence
+    - Error handling
+- Logging system
+    - Operation logging
+    - Error tracking
+    - Debug information
+
+### Technical
+- MVC architecture
+- SQLite database
+- Swing GUI
+- Maven project structure
+- Error handling
+- Input validation
+- Logging integration
