@@ -18,4 +18,14 @@ public class DatabaseConfig {
     static {
         connectionString = "jdbc:sqlite:" + databaseName;
     }
+    //troubleshooting 11/26
+    static {
+        try {
+            // Explicitly load the SQLite driver
+            Class.forName("org.sqlite.JDBC");
+            connectionString = "jdbc:sqlite:" + databaseName;
+        } catch (ClassNotFoundException e) {
+            System.out.println("SQLite JDBC driver not found: " + e.getMessage());
+        }
+    }
 }

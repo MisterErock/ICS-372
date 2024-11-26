@@ -17,7 +17,7 @@ public class DatabaseManager {
         this.createTables();
     }
 
-    private void createTables() {
+  /*  private void createTables() {
         String sql = "CREATE TABLE IF NOT EXISTS appliances (id TEXT PRIMARY KEY,type TEXT NOT NULL,model TEXT NOT NULL,purchase_date TEXT NOT NULL,last_service_date TEXT NOT NULL,next_service_date TEXT NOT NULL,status TEXT NOT NULL)";
 
         try (
@@ -30,6 +30,30 @@ public class DatabaseManager {
             System.out.println("Error creating table: " + e.getMessage());
         }
 
+    }
+*/
+    //troubleshooting 11/26
+    private void createTables() {
+        String sql = "CREATE TABLE IF NOT EXISTS appliances (" +
+                "id TEXT PRIMARY KEY," +
+                "type TEXT NOT NULL," +
+                "model TEXT NOT NULL," +
+                "purchase_date TEXT NOT NULL," +
+                "last_service_date TEXT NOT NULL," +
+                "next_service_date TEXT NOT NULL," +
+                "status TEXT NOT NULL)";
+
+        try (
+                // Ensure the database file is created
+                Connection conn = DatabaseConfig.getConnection();
+                Statement stmt = conn.createStatement();
+        ) {
+            System.out.println("Database file location: " + new java.io.File(DatabaseConfig.databaseName).getAbsolutePath());  // Log the absolute path
+            stmt.execute(sql);
+            System.out.println("Table created successfully");
+        } catch (SQLException e) {
+            System.out.println("Error creating table: " + e.getMessage());
+        }
     }
 
     public void saveAppliance(Appliance appliance) {
