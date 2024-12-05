@@ -95,23 +95,6 @@ public class DatabaseManager {
         return appliances;
     }
 
-    //for editing and updating a appliance
-    /* New method to update an existing appliance
-    public void updateAppliance(Appliance updatedAppliance) {
-        for (int i = 0; i < appliances.size(); i++) {
-            Appliance appliance = appliances.get(i);
-            if (appliance.getApplianceId().equals(updatedAppliance.getApplianceId())) {
-                // Replace the old appliance with the updated version
-                appliances.set(i, updatedAppliance);
-                // Save changes if necessary (to a file or database)
-                System.out.println("Updated appliance with ID: " + updatedAppliance.getApplianceId());
-                return;
-            }
-        }
-        throw new RuntimeException("Appliance with ID " + updatedAppliance.getApplianceId() + " not found.");
-    }
-
-     */
     public void updateAppliance(Appliance updatedAppliance) {
         if (this.appliances == null) {
             throw new IllegalStateException("Appliances list is not initialized.");
