@@ -80,3 +80,34 @@ Testing
     - The links are hyper
     - The titles match the intended videos
     - The descriptions are neat and concise
+  
+<br><br><br>
+
+# Phase 3
+
+## Back Button
+The system allows users to return to the home screen from any of the pages
+- Notifications View
+- Tutorials View
+- Appliance View
+  
+Testing
+1. Click a view
+2. Click the back button
+
+## Edit Device
+The system allows users to edit a device in the system
+- Change the model
+- Change the type
+- Change the service date
+  
+Testing
+1. Enter appliance view
+2. Add a new appliance if none exist
+3. click the appliance
+4. click edit appliance
+5. change desired field
+6. click save
+7. verify:
+   - Fields have changed
+   - Related views are up to date
