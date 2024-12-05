@@ -1,21 +1,19 @@
 package edu.metrostate.view;
-
 import edu.metrostate.controller.ApplianceController;
 import edu.metrostate.controller.NotificationController;
-import edu.metrostate.controller.TutorialController;  // Import TutorialController
-
+import edu.metrostate.controller.TutorialController;
 import javax.swing.*;
 import java.awt.*;
 
 public class HomeScreenView extends JPanel {
     private final JFrame parentFrame;
     private final NotificationController notificationController;
-    private final TutorialController tutorialController;  // Add TutorialController field
+    private final TutorialController tutorialController;
 
     public HomeScreenView(ApplianceController controller, NotificationController notificationController, TutorialController tutorialController, JFrame parentFrame) {
         this.parentFrame = parentFrame;
         this.notificationController = notificationController;
-        this.tutorialController = tutorialController;  // Assign TutorialController
+        this.tutorialController = tutorialController;
 
         setLayout(new BorderLayout());
 
@@ -41,7 +39,7 @@ public class HomeScreenView extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH); // Add bottom panel to the bottom of the screen
 
         // Set up navigation listeners
-        setupListeners(notificationsButton, tutorialsButton, addDeviceButton, controller); // Initialize button actions
+        setupListeners(notificationsButton, tutorialsButton, addDeviceButton, controller);
     }
 
     private void setupListeners(JButton notificationsButton, JButton tutorialsButton, JButton addDeviceButton, ApplianceController controller) {

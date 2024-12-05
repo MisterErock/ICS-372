@@ -66,7 +66,7 @@ public class NotificationView extends JPanel {
         // Add notifications to the list model
         for (Notification notification : notifications) {
             String applianceInfo = "Appliance: " + notification.getApplianceId();
-            listModel.addElement(applianceInfo + " - " + notification.getMessage());  // Assuming getMessage() returns the notification message
+            listModel.addElement(applianceInfo + " - " + notification.getMessage());
         }
 
         // Set the list model to the JList

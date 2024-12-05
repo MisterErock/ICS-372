@@ -17,22 +17,8 @@ public class DatabaseManager {
         this.createTables();
     }
 
-  /*  private void createTables() {
-        String sql = "CREATE TABLE IF NOT EXISTS appliances (id TEXT PRIMARY KEY,type TEXT NOT NULL,model TEXT NOT NULL,purchase_date TEXT NOT NULL,last_service_date TEXT NOT NULL,next_service_date TEXT NOT NULL,status TEXT NOT NULL)";
+    private List<Appliance> appliances;
 
-        try (
-                Connection conn = DatabaseConfig.getConnection();
-                Statement stmt = conn.createStatement();
-        ) {
-            stmt.execute(sql);
-            System.out.println("Table created successfully");
-        } catch (SQLException e) {
-            System.out.println("Error creating table: " + e.getMessage());
-        }
-
-    }
-*/
-    //troubleshooting 11/26
     private void createTables() {
         String sql = "CREATE TABLE IF NOT EXISTS appliances (" +
                 "id TEXT PRIMARY KEY," +
@@ -105,4 +91,22 @@ public class DatabaseManager {
 
         return appliances;
     }
+
+    //for editing and updating a appliance
+    // New method to update an existing appliance
+    public void updateAppliance(Appliance updatedAppliance) {
+        for (int i = 0; i < appliances.size(); i++) {
+            Appliance appliance = appliances.get(i);
+            if (appliance.getApplianceId().equals(updatedAppliance.getApplianceId())) {
+                // Replace the old appliance with the updated version
+                appliances.set(i, updatedAppliance);
+                // Save changes if necessary (to a file or database)
+                System.out.println("Updated appliance with ID: " + updatedAppliance.getApplianceId());
+                return;
+            }
+        }
+        throw new RuntimeException("Appliance with ID " + updatedAppliance.getApplianceId() + " not found.");
+    }
+
 }
+

@@ -4,7 +4,7 @@ import edu.metrostate.model.Tutorial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TutorialController {  // Updated class name
+public class TutorialController {
     private List<Tutorial> tutorials;
 
     public TutorialController() {
@@ -13,7 +13,7 @@ public class TutorialController {  // Updated class name
     }
 
     private void loadTutorials() {
-        // Add sample tutorials (could also be loaded from a database or file)
+        // Tutorials and links
         tutorials.add(new Tutorial("General Refrigerator Maintenance Tips", "General maintenance for your refrigerator.", "https://safetyculture.com/topics/refrigerator-maintenance/"));
         tutorials.add(new Tutorial("Refrigerator Cleaning", "How to clean and maintain your refrigerator.", "https://youtu.be/3eiYfVrXu8o?si=W6o9KIwORcXxFZhB"));
         tutorials.add(new Tutorial("Washing Machine Troubleshooting", "Common issues with washing machines and how to fix them.", "https://www.expresssewer.com/blog/washing-machine-problems-and-solutions"));
