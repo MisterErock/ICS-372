@@ -40,3 +40,41 @@ Testing:
     - Status
 5. Add new appliance
 6. Verify list updates automatically
+
+# Phase 2
+
+##Notification View
+The system would show the users upcoming(7 days) and overdue service dates on the home screen after clicking the notifications button.
+- View the notifications for the appliances that are present
+- When they are due
+- Last service date
+- The appliance type and id
+
+Testing:
+1. Add an appliance with an overdue date
+2. Add an appliance with a due date approaching within 7 days
+3. Return to home page
+4. Click the notification tab 
+5. View the items with upcoming or overdue services
+    Verify:
+       - Appliances appears in list
+       - The service records are correct
+       - The upcoming service date is correct
+       - The message matches to the correct overdue or upcoming appliance
+   
+##Tutorials View
+The system allows users to view tutorials related to troubleshooting the appliances in the application
+- Scrollable list
+- Clickable links
+- Appliance type titles
+- Short description
+
+  Testing
+  1. Enter the homepage
+  2. Click the tutorials button
+  3. View and scroll through the tutorial options
+     Verify: 
+        - The list is visible
+        - The links are hyper
+        - The titles match the intended videos
+        - The descriptions are neat and concise
