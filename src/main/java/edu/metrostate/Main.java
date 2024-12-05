@@ -1,11 +1,9 @@
 package edu.metrostate;
 
 import edu.metrostate.controller.ApplianceController;
-import edu.metrostate.view.HomeScreenView;
-
-//for notifications:
 import edu.metrostate.controller.NotificationController;
-
+import edu.metrostate.controller.TutorialController;
+import edu.metrostate.view.HomeScreenView;
 
 import java.awt.Component;
 import java.util.logging.Level;
@@ -14,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
@@ -35,16 +32,15 @@ public class Main {
             try {
                 ApplianceController controller = new ApplianceController();
                 NotificationController notificationController = new NotificationController();
-                //notificationController.generateSampleNotifications();  // Add some sample notifications for testing
-
+                TutorialController tutorialController = new TutorialController();  // New TutorialController instance
 
                 JFrame frame = new JFrame("Appliance Manager");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(800, 600);
-                // BEGIN: Updated logic to initialize with HomeScreenView
-                HomeScreenView homeScreen = new HomeScreenView(controller, notificationController, frame);
-                frame.add(homeScreen);// Add HomeScreenView as the default content
-                // END: Updated logic for initial screen
+
+                // Updated logic to initialize with HomeScreenView
+                HomeScreenView homeScreen = new HomeScreenView(controller, notificationController, tutorialController, frame);
+                frame.add(homeScreen);  // Add HomeScreenView as the default content
 
                 frame.setLocationRelativeTo((Component) null);
                 frame.setVisible(true);
@@ -62,3 +58,4 @@ public class Main {
         });
     }
 }
+

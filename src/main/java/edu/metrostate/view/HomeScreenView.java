@@ -1,24 +1,21 @@
 package edu.metrostate.view;
 
 import edu.metrostate.controller.ApplianceController;
-// new for notifications
 import edu.metrostate.controller.NotificationController;
+import edu.metrostate.controller.TutorialController;  // Import TutorialController
 
 import javax.swing.*;
 import java.awt.*;
 
 public class HomeScreenView extends JPanel {
     private final JFrame parentFrame;
-    //new for notifications
     private final NotificationController notificationController;
+    private final TutorialController tutorialController;  // Add TutorialController field
 
-
-
-    public HomeScreenView(ApplianceController controller, NotificationController notificationController ,JFrame parentFrame) {
+    public HomeScreenView(ApplianceController controller, NotificationController notificationController, TutorialController tutorialController, JFrame parentFrame) {
         this.parentFrame = parentFrame;
-        //new for notifications:
         this.notificationController = notificationController;
-
+        this.tutorialController = tutorialController;  // Assign TutorialController
 
         setLayout(new BorderLayout());
 
@@ -47,46 +44,46 @@ public class HomeScreenView extends JPanel {
         setupListeners(notificationsButton, tutorialsButton, addDeviceButton, controller); // Initialize button actions
     }
 
-
     private void setupListeners(JButton notificationsButton, JButton tutorialsButton, JButton addDeviceButton, ApplianceController controller) {
-        // Notifications button listener (with updates to show view
-        //notificationsButton.addActionListener(e -> new NotificationView(parentFrame, notificationController).setVisible(true));
+        // Notifications button listener
         notificationsButton.addActionListener(e -> {
-            // Now NotificationView only needs the notificationController
-            NotificationView notificationView = new NotificationView(notificationController);
+            NotificationView notificationView = new NotificationView(notificationController, parentFrame);
             parentFrame.getContentPane().removeAll(); // Clear the current content
             parentFrame.getContentPane().add(notificationView); // Add the new NotificationView
             parentFrame.revalidate(); // Revalidate to refresh the frame
         });
 
-
         // Tutorials button listener
-        tutorialsButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Tutorials clicked!"));
+        tutorialsButton.addActionListener(e -> {
+            TutorialsView tutorialsView = new TutorialsView(tutorialController, parentFrame);
+            parentFrame.getContentPane().removeAll(); // Clear the current content
+            parentFrame.getContentPane().add(tutorialsView); // Add the new TutorialsView
+            parentFrame.revalidate(); // Revalidate to refresh the frame
+        });
 
         // Add Device button listener navigates to ApplianceListView instead of opening AddApplianceDialog
         addDeviceButton.setText("View Appliances"); // Update button text to "View Appliances"
         addDeviceButton.addActionListener(e -> {
-            // Navigate to ApplianceListView
-            ApplianceListView applianceListView = new ApplianceListView(controller);
+            ApplianceListView applianceListView = new ApplianceListView(controller, parentFrame);
             parentFrame.getContentPane().removeAll(); // Remove current content (HomeScreenView)
             parentFrame.getContentPane().add(applianceListView); // Add ApplianceListView
             parentFrame.revalidate(); // Revalidate to refresh the frame
-
         });
     }
+
+
     // Temporary Method To Show A Message On The HomeScreen
     private String[] getHomeScreenTxt() {
         return new String[]{
-                "<html><h1>House Maintenance</h1></html>" , // Sample service item
-                "<html><strong>Let us manage your maintenance schedule on your household appliances so that you don't have to!</strong><br></html>", // Description
-                "<html><br><h2><strong>Getting Started:</h2></html>", // Subheading
-                "<html><p>View your appliance list below</p></html>", // Instruction
+                "<html><h1>House Maintenance</h1></html>",
+                "<html><strong>Let us manage your maintenance schedule on your household appliances so that you don't have to!</strong><br></html>",
+                "<html><br><h2><strong>Getting Started:</h2></html>",
+                "<html><p>View your appliance list below</p></html>",
                 "<html><p>Don't have any yet? View and then add what you need to remain maintained</p></html>",
-                "<html><p>The notifications tab will keep you up to date on your upcoming and overdue services.</p></html>", // Notifications info
-                "<html><p>Want to do the maintenance yourself? Click the tutorials below to see DIY videos on keeping your appliances up to date!</p></html>",// Tutorials info
+                "<html><p>The notifications tab will keep you up to date on your upcoming and overdue services.</p></html>",
+                "<html><p>Want to do the maintenance yourself? Click the tutorials below to see DIY tips on keeping your appliances up to date!</p></html>",
                 "<html><br><h3><strong>Thank You</h3></html>",
                 "<html><i>Enjoy a clear mind, we've got your scheduled maintenance covered!</i></html>"
         };
     }
-
 }
