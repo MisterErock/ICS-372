@@ -6,70 +6,97 @@ import edu.metrostate.model.Appliance;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class EditApplianceDialog extends JDialog {
-    private JTextField modelField;
-    private JTextField typeField;
-    private ApplianceController controller;
-    private Appliance appliance;
+    private final ApplianceController controller;
+    private final Appliance appliance;
+    private final JFrame parentFrame;
 
-    public EditApplianceDialog(JFrame parent, ApplianceController controller, Appliance appliance) {
-        super(parent, "Edit Appliance", true);
+    public EditApplianceDialog(JFrame parentFrame, ApplianceController controller, Appliance appliance) {
+        super(parentFrame, "Edit Appliance", true);
+        this.parentFrame = parentFrame;
         this.controller = controller;
         this.appliance = appliance;
 
         setupUI();
-        loadApplianceData();
     }
 
     private void setupUI() {
-        this.setLayout(new BorderLayout());
-        this.setSize(400, 200);
-        this.setLocationRelativeTo(null);
-
-        // Form Panel
-        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        setLayout(new BorderLayout());
+        JPanel formPanel = new JPanel(new GridLayout(0, 2, 10, 10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        formPanel.add(new JLabel("Appliance Type:"));
-        typeField = new JTextField();
-        formPanel.add(typeField);
+        // Appliance fields
+        JTextField modelField = new JTextField(appliance.getModel());
+        JComboBox<String> typeBox = new JComboBox<>(Appliance.APPLIANCE_TYPES);
+        typeBox.setSelectedItem(appliance.getApplianceType());
+
+        formPanel.add(new JLabel("Type:"));
+        formPanel.add(typeBox);
 
         formPanel.add(new JLabel("Model:"));
-        modelField = new JTextField();
         formPanel.add(modelField);
 
-        this.add(formPanel, BorderLayout.CENTER);
+        add(formPanel, BorderLayout.CENTER);
 
-        // Button Panel
-        JPanel buttonPanel = new JPanel();
+        // Buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(this::saveChanges);
+        saveButton.addActionListener(e -> saveAppliance(modelField.getText(), (String) typeBox.getSelectedItem()));
+
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(this::deleteAppliance);
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(e -> dispose());
 
         buttonPanel.add(saveButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(cancelButton);
 
-        this.add(buttonPanel, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        pack();
+        setLocationRelativeTo(parentFrame);
     }
 
-    private void loadApplianceData() {
-        if (appliance != null) {
-            typeField.setText(appliance.getApplianceType());
-            modelField.setText(appliance.getModel());
-        }
+    private void saveAppliance(String model, String type) {
+        // Update appliance details
+        appliance.setModel(model);
+        appliance.setApplianceType(type);
+        controller.updateAppliance(appliance);
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Appliance details updated successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        dispose(); // Close the dialog
     }
 
-    private void saveChanges(ActionEvent e) {
-        if (appliance != null) {
-            appliance.setApplianceType(typeField.getText().trim());
-            appliance.setModel(modelField.getText().trim());
+    private void deleteAppliance(ActionEvent e) {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete this appliance?",
+                "Delete Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
 
-            controller.updateAppliance(appliance); // Assuming controller has a method for updating the appliance
-            JOptionPane.showMessageDialog(this, "Appliance updated successfully!");
-            dispose();
+        if (confirm == JOptionPane.YES_OPTION) {
+            controller.deleteAppliance(appliance);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Appliance deleted successfully!",
+                    "Deleted",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            dispose(); // Close the dialog
         }
     }
 }

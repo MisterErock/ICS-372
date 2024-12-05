@@ -1,7 +1,9 @@
 package edu.metrostate.view;
+
 import edu.metrostate.controller.ApplianceController;
 import edu.metrostate.controller.NotificationController;
 import edu.metrostate.controller.TutorialController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,78 +12,106 @@ public class HomeScreenView extends JPanel {
     private final NotificationController notificationController;
     private final TutorialController tutorialController;
 
-    public HomeScreenView(ApplianceController controller, NotificationController notificationController, TutorialController tutorialController, JFrame parentFrame) {
+    public HomeScreenView(
+            ApplianceController controller,
+            NotificationController notificationController,
+            TutorialController tutorialController,
+            JFrame parentFrame
+    ) {
         this.parentFrame = parentFrame;
         this.notificationController = notificationController;
         this.tutorialController = tutorialController;
-
         setLayout(new BorderLayout());
 
         // Top Section: User and Notifications
         JPanel topPanel = new JPanel(new BorderLayout());
-        JLabel userLabel = new JLabel("Welcome, User!"); // User greeting label
+        JLabel userLabel = new JLabel("Welcome, User!", SwingConstants.LEFT); // User greeting label
         JButton notificationsButton = new JButton("🔔 Notifications"); // Notifications button
         topPanel.add(userLabel, BorderLayout.WEST); // Align label to the left
         topPanel.add(notificationsButton, BorderLayout.EAST); // Align button to the right
         add(topPanel, BorderLayout.NORTH); // Add top panel to the top of the screen
 
-        // Center Section: Updated Services List
-        JList<String> servicesList = new JList<>(getHomeScreenTxt()); // Temporary data for services
-        JScrollPane scrollPane = new JScrollPane(servicesList); // Add scrolling capability to the list
-        add(scrollPane, BorderLayout.CENTER); // Add list to the center of the screen
+        // Center Section: Services Info
+        JTextPane servicesPane = createHomeScreenTextPane(); // Home screen text pane
+        JScrollPane scrollPane = new JScrollPane(servicesPane); // Add scrolling capability
+        add(scrollPane, BorderLayout.CENTER); // Add to the center of the screen
 
         // Bottom Section: Navigation Buttons
-        JPanel bottomPanel = new JPanel();
-        JButton tutorialsButton = new JButton("Tutorials"); // Button to navigate to tutorials
-        JButton addDeviceButton = new JButton("Add Device"); // Button to open Add Appliance dialog
-        bottomPanel.add(tutorialsButton); // Add Tutorials button to the bottom panel
-        bottomPanel.add(addDeviceButton); // Add Device button to the bottom panel
-        add(bottomPanel, BorderLayout.SOUTH); // Add bottom panel to the bottom of the screen
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton tutorialsButton = new JButton("Tutorials"); // Tutorials navigation button
+        JButton viewAppliancesButton = new JButton("View Appliances"); // Button for appliance management
+        bottomPanel.add(tutorialsButton); // Add Tutorials button
+        bottomPanel.add(viewAppliancesButton); // Add View Appliances button
+        add(bottomPanel, BorderLayout.SOUTH); // Add to the bottom of the screen
 
         // Set up navigation listeners
-        setupListeners(notificationsButton, tutorialsButton, addDeviceButton, controller);
+        setupListeners(notificationsButton, tutorialsButton, viewAppliancesButton, controller);
     }
 
-    private void setupListeners(JButton notificationsButton, JButton tutorialsButton, JButton addDeviceButton, ApplianceController controller) {
+    private JTextPane createHomeScreenTextPane() {
+        JTextPane textPane = new JTextPane();
+        textPane.setContentType("text/html"); // Enable HTML rendering
+        textPane.setText(getHomeScreenTxt()); // Set the HTML content
+        textPane.setEditable(false); // Make the text non-editable
+        textPane.setOpaque(false); // Blend with the background
+        return textPane;
+    }
+
+    private void setupListeners(JButton notificationsButton, JButton tutorialsButton, JButton viewAppliancesButton, ApplianceController controller) {
         // Notifications button listener
         notificationsButton.addActionListener(e -> {
             NotificationView notificationView = new NotificationView(notificationController, parentFrame);
-            parentFrame.getContentPane().removeAll(); // Clear the current content
-            parentFrame.getContentPane().add(notificationView); // Add the new NotificationView
-            parentFrame.revalidate(); // Revalidate to refresh the frame
+            switchToView(notificationView);
         });
 
         // Tutorials button listener
         tutorialsButton.addActionListener(e -> {
             TutorialsView tutorialsView = new TutorialsView(tutorialController, parentFrame);
-            parentFrame.getContentPane().removeAll(); // Clear the current content
-            parentFrame.getContentPane().add(tutorialsView); // Add the new TutorialsView
-            parentFrame.revalidate(); // Revalidate to refresh the frame
+            switchToView(tutorialsView);
         });
 
-        // Add Device button listener navigates to ApplianceListView instead of opening AddApplianceDialog
-        addDeviceButton.setText("View Appliances"); // Update button text to "View Appliances"
-        addDeviceButton.addActionListener(e -> {
-            ApplianceListView applianceListView = new ApplianceListView(controller, parentFrame);
-            parentFrame.getContentPane().removeAll(); // Remove current content (HomeScreenView)
-            parentFrame.getContentPane().add(applianceListView); // Add ApplianceListView
-            parentFrame.revalidate(); // Revalidate to refresh the frame
+        // View Appliances button listener
+        viewAppliancesButton.addActionListener(e -> {
+            ApplianceListView applianceListView = new ApplianceListView(
+                    controller, // Use the controller parameter passed to this method
+                    parentFrame,
+                    notificationController,
+                    tutorialController
+            );
+
+            switchToView(applianceListView);
         });
     }
 
+    private void switchToView(JPanel newView) {
+        parentFrame.getContentPane().removeAll(); // Remove current content
+        parentFrame.getContentPane().add(newView); // Add the new view
+        parentFrame.revalidate(); // Revalidate to refresh the frame
+        parentFrame.repaint(); // Repaint to ensure visual updates
+    }
 
-    // Temporary Method To Show A Message On The HomeScreen
-    private String[] getHomeScreenTxt() {
-        return new String[]{
-                "<html><h1>House Maintenance</h1></html>",
-                "<html><strong>Let us manage your maintenance schedule on your household appliances so that you don't have to!</strong><br></html>",
-                "<html><br><h2><strong>Getting Started:</h2></html>",
-                "<html><p>View your appliance list below</p></html>",
-                "<html><p>Don't have any yet? View and then add what you need to remain maintained</p></html>",
-                "<html><p>The notifications tab will keep you up to date on your upcoming and overdue services.</p></html>",
-                "<html><p>Want to do the maintenance yourself? Click the tutorials below to see DIY tips on keeping your appliances up to date!</p></html>",
-                "<html><br><h3><strong>Thank You</h3></html>",
-                "<html><i>Enjoy a clear mind, we've got your scheduled maintenance covered!</i></html>"
-        };
+    // Method to display the textual information on the home screen
+    private String getHomeScreenTxt() {
+        return """
+                <html>
+                <body style="font-family: Arial, sans-serif; margin: 10px;">
+                    <h1 style="text-align: center; color: #333;">House Maintenance</h1>
+                    <p style="text-align: center; color: #555;">
+                        Let us manage your maintenance schedule on your household appliances so that you don't have to!
+                    </p>
+                    <h2 style="color: #333;">Getting Started:</h2>
+                    <ul style="color: #555;">
+                        <li>View your appliance list below.</li>
+                        <li>Don't have any yet? Add what you need to stay on top of maintenance.</li>
+                        <li>The notifications tab will keep you up to date on your upcoming and overdue services.</li>
+                        <li>Want to do the maintenance yourself? Click on Tutorials to see DIY tips!</li>
+                    </ul>
+                    <h3 style="color: #333;">Thank You</h3>
+                    <p style="color: #777; font-style: italic;">
+                        Enjoy peace of mind—your maintenance is covered!
+                    </p>
+                </body>
+                </html>
+                """;
     }
 }
