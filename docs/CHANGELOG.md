@@ -83,4 +83,17 @@
 - NotificationView
 - TutorialView
 
-  
+# Milestone 6
+[Asia Osman, Elijah Nicholson, Neeju Singh]
+### Added
+- Back Button 
+    - Return to home screen option
+- Edit Device
+    - Edit model
+    - Edit type
+    - Edit service date
+## Technical 
+- EditeApplianceDialog
+- updates to ApplianceController
+- updates to AppklianceView
+- updates to DatabaseManager

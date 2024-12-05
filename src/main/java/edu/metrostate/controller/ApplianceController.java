@@ -52,19 +52,33 @@ public class ApplianceController {
 
     }
 
+
     private boolean validateAppliance(Appliance appliance) {
         return appliance.getApplianceType() != null && !appliance.getApplianceType().trim().isEmpty() && appliance.getModel() != null && !appliance.getModel().trim().isEmpty() && appliance.getPurchaseDate() != null;
     }
 
+
     private void updateView() {
         if (this.listView != null) {
-            this.listView.displayAppliances(this.model.getAllAppliances());
+            listView.displayAppliances(this.model.getAllAppliances());
         }
-
     }
 
     public void setListView(ApplianceListView view) {
         this.listView = view;
         this.updateView();
     }
-}
+
+    public void updateAppliance(Appliance updatedAppliance) {
+        try {
+            this.model.updateAppliance(updatedAppliance); // Update in-memory list
+            this.dbManager.updateAppliance(updatedAppliance); // Update database
+            this.updateView(); // Refresh the view to reflect the changes
+            logger.log(Level.INFO, "Successfully updated appliance: {0}", updatedAppliance.getApplianceType());
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to update appliance", e);
+        }
+    }
+
+    }
+

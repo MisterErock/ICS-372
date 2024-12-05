@@ -45,6 +45,6 @@ public class NotificationController {
     private boolean isServiceSoon(Date nextServiceDueDate, Date currentDate) {
         long differenceInMilliSeconds = nextServiceDueDate.getTime() - currentDate.getTime();
         long differenceInDays = differenceInMilliSeconds / (1000 * 60 * 60 * 24);  // Convert milliseconds to days
-        return differenceInDays <= 7;  // You can adjust this threshold as needed
+        return differenceInDays <= 7;  // Adjust the day count threshold
     }
 }

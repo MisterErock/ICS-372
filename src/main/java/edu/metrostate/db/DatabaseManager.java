@@ -13,26 +13,15 @@ import java.util.List;
 public class DatabaseManager {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
+    private List<Appliance> appliances;
+
     public DatabaseManager() {
         this.createTables();
+        this.appliances = new ArrayList<>();
     }
 
-  /*  private void createTables() {
-        String sql = "CREATE TABLE IF NOT EXISTS appliances (id TEXT PRIMARY KEY,type TEXT NOT NULL,model TEXT NOT NULL,purchase_date TEXT NOT NULL,last_service_date TEXT NOT NULL,next_service_date TEXT NOT NULL,status TEXT NOT NULL)";
 
-        try (
-                Connection conn = DatabaseConfig.getConnection();
-                Statement stmt = conn.createStatement();
-        ) {
-            stmt.execute(sql);
-            System.out.println("Table created successfully");
-        } catch (SQLException e) {
-            System.out.println("Error creating table: " + e.getMessage());
-        }
 
-    }
-*/
-    //troubleshooting 11/26
     private void createTables() {
         String sql = "CREATE TABLE IF NOT EXISTS appliances (" +
                 "id TEXT PRIMARY KEY," +
@@ -105,4 +94,29 @@ public class DatabaseManager {
 
         return appliances;
     }
+
+    public void updateAppliance(Appliance updatedAppliance) {
+        if (this.appliances == null) {
+            throw new IllegalStateException("Appliances list is not initialized.");
+        }
+        for (int i = 0; i < this.appliances.size(); i++) {
+            Appliance appliance = this.appliances.get(i);
+            if (appliance.getApplianceId().equals(updatedAppliance.getApplianceId())) {
+                this.appliances.set(i, updatedAppliance);
+                System.out.println("Appliance updated successfully.");
+                return;
+            }
+        }
+        throw new RuntimeException("Appliance with ID " + updatedAppliance.getApplianceId() + " not found.");
+    }
+
+    // Method to add appliances (for initial data population)
+    public void addAppliance(Appliance appliance) {
+        if (this.appliances == null) {
+            this.appliances = new ArrayList<>();
+        }
+        this.appliances.add(appliance);
+    }
+
 }
+

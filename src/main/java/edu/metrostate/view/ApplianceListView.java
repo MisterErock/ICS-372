@@ -1,70 +1,128 @@
+
 package edu.metrostate.view;
 
 import edu.metrostate.controller.ApplianceController;
 import edu.metrostate.model.Appliance;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.Timer;
-import javax.swing.UIManager;
+import javax.swing.*;
+import edu.metrostate.controller.NotificationController;
+import edu.metrostate.controller.TutorialController;
+
+
 
 public class ApplianceListView extends JPanel {
     private static final Logger logger = Logger.getLogger(ApplianceListView.class.getName());
     private JList<Appliance> applianceList;
-    private DefaultListModel<Appliance> listModel = new DefaultListModel();
+    private DefaultListModel<Appliance> listModel = new DefaultListModel<>();
     private ApplianceController controller;
-    private JButton addButton;
+    private JButton addButton, editButton;
     private JLabel statusLabel;
 
-    public ApplianceListView(ApplianceController controller) {
+    private final JFrame parentFrame;
+
+    public ApplianceListView(ApplianceController controller, JFrame parentFrame) {
         this.controller = controller;
+        this.parentFrame = parentFrame;
+
         controller.setListView(this);
-        this.setupUI();
+        setupUI();
         logger.log(Level.INFO, "ApplianceListView initialized");
     }
 
     private void setupUI() {
         this.setLayout(new BorderLayout());
-        this.applianceList = new JList(this.listModel);
-        this.applianceList.setCellRenderer(new ApplianceListCellRenderer());
-        this.applianceList.addListSelectionListener((e) -> {
-            if (!e.getValueIsAdjusting()) {
-                this.showApplianceDetails((Appliance)this.applianceList.getSelectedValue());
-            }
 
-        });
+        // Title Label at the top
+        JLabel titleLabel = new JLabel("<html><h1>Appliance List</h1></html>", SwingConstants.CENTER);
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Appliance List in the center
+        this.applianceList = new JList<>(this.listModel);
+        this.applianceList.setCellRenderer(new ApplianceListCellRenderer());
         JScrollPane scrollPane = new JScrollPane(this.applianceList);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Appliances"));
-        this.add(scrollPane, "Center");
-        JPanel bottomPanel = new JPanel(new BorderLayout());
+        this.add(scrollPane, BorderLayout.CENTER);
+
+
+        // Bottom Panel with Status Label, Add Button, Edit Button, and Back Button
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        // Status Label on the left
+        this.statusLabel = new JLabel(" ");
+        bottomPanel.add(this.statusLabel);
+
+
+    //Buttons on the bottom to go back, edit and add an appliance
+        // Back Button (Left)
+        if (parentFrame != null) {
+            JButton backButton = new JButton("Back to Home");
+            backButton.addActionListener(e -> {
+                parentFrame.getContentPane().removeAll();
+                parentFrame.getContentPane().add(new HomeScreenView(controller, new NotificationController(), new TutorialController(), parentFrame));
+                parentFrame.revalidate();
+            });
+            bottomPanel.add(backButton);
+        }
+
+        // Edit Appliance Button (Middle)
+        this.editButton = new JButton("Edit Selected Appliance");
+        this.editButton.setEnabled(false); // Disabled by default
+        this.editButton.addActionListener((e) -> this.showEditApplianceDialog());
+        bottomPanel.add(this.editButton);
+
+        // Add Appliance Button (Right)
         this.addButton = new JButton("Add New Appliance");
         this.addButton.setIcon(UIManager.getIcon("FileView.fileIcon"));
         this.addButton.addActionListener((e) -> this.showAddApplianceDialog());
-        this.statusLabel = new JLabel(" ");
-        bottomPanel.add(this.statusLabel, "West");
-        bottomPanel.add(this.addButton, "East");
-        this.add(bottomPanel, "South");
+        bottomPanel.add(this.addButton);
+
+
+        // List Selection Listener for Enabling Edit Button and Showing Details
+        this.applianceList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && this.applianceList.getSelectedValue() != null) {
+                this.editButton.setEnabled(true);
+                showApplianceDetails(this.applianceList.getSelectedValue()); // Show details on selection
+            } else {
+                this.editButton.setEnabled(false);
+            }
+        });
+
+        this.add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    /* Method to show the edit dialog
+    private void showEditApplianceDialog() {
+        Appliance selectedAppliance = this.applianceList.getSelectedValue();
+        if (selectedAppliance != null) {
+            EditApplianceDialog dialog = new EditApplianceDialog(parentFrame , controller, selectedAppliance);
+            dialog.setVisible(true);
+        }
+    }
+
+     */
+    private void showEditApplianceDialog() {
+        Appliance selectedAppliance = this.applianceList.getSelectedValue();
+        if (selectedAppliance != null) {
+            System.out.println("Opening Edit Dialog for Appliance: " + selectedAppliance.getApplianceType() + " - " + selectedAppliance.getModel());
+            EditApplianceDialog dialog = new EditApplianceDialog(parentFrame, controller, selectedAppliance);
+            dialog.setVisible(true);
+        }
+    }
+
+
+    //Method for editing to display the device
     public void displayAppliances(List<Appliance> appliances) {
         if (this.listModel == null) {
             logger.log(Level.SEVERE, "listModel is not initialized!");
         } else {
             this.listModel.clear();
-
-            for(Appliance appliance : appliances) {
+            for (Appliance appliance : appliances) {
                 this.listModel.addElement(appliance);
             }
-
             logger.log(Level.FINE, "Updated appliance list display with {0} items", appliances.size());
         }
     }
@@ -97,6 +155,5 @@ public class ApplianceListView extends JPanel {
             ApplianceDetailDialog dialog = new ApplianceDetailDialog(this, appliance);
             dialog.setVisible(true);
         }
-
     }
 }
