@@ -13,11 +13,14 @@ import java.util.List;
 public class DatabaseManager {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
+    private List<Appliance> appliances;
+
     public DatabaseManager() {
         this.createTables();
+        this.appliances = new ArrayList<>();
     }
 
-    private List<Appliance> appliances;
+
 
     private void createTables() {
         String sql = "CREATE TABLE IF NOT EXISTS appliances (" +
@@ -93,7 +96,7 @@ public class DatabaseManager {
     }
 
     //for editing and updating a appliance
-    // New method to update an existing appliance
+    /* New method to update an existing appliance
     public void updateAppliance(Appliance updatedAppliance) {
         for (int i = 0; i < appliances.size(); i++) {
             Appliance appliance = appliances.get(i);
@@ -106,6 +109,30 @@ public class DatabaseManager {
             }
         }
         throw new RuntimeException("Appliance with ID " + updatedAppliance.getApplianceId() + " not found.");
+    }
+
+     */
+    public void updateAppliance(Appliance updatedAppliance) {
+        if (this.appliances == null) {
+            throw new IllegalStateException("Appliances list is not initialized.");
+        }
+        for (int i = 0; i < this.appliances.size(); i++) {
+            Appliance appliance = this.appliances.get(i);
+            if (appliance.getApplianceId().equals(updatedAppliance.getApplianceId())) {
+                this.appliances.set(i, updatedAppliance);
+                System.out.println("Appliance updated successfully.");
+                return;
+            }
+        }
+        throw new RuntimeException("Appliance with ID " + updatedAppliance.getApplianceId() + " not found.");
+    }
+
+    // Method to add appliances (for initial data population)
+    public void addAppliance(Appliance appliance) {
+        if (this.appliances == null) {
+            this.appliances = new ArrayList<>();
+        }
+        this.appliances.add(appliance);
     }
 
 }

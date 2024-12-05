@@ -94,7 +94,7 @@ public class ApplianceListView extends JPanel {
         this.add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    // Method to show the edit dialog
+    /* Method to show the edit dialog
     private void showEditApplianceDialog() {
         Appliance selectedAppliance = this.applianceList.getSelectedValue();
         if (selectedAppliance != null) {
@@ -102,6 +102,17 @@ public class ApplianceListView extends JPanel {
             dialog.setVisible(true);
         }
     }
+
+     */
+    private void showEditApplianceDialog() {
+        Appliance selectedAppliance = this.applianceList.getSelectedValue();
+        if (selectedAppliance != null) {
+            System.out.println("Opening Edit Dialog for Appliance: " + selectedAppliance.getApplianceType() + " - " + selectedAppliance.getModel());
+            EditApplianceDialog dialog = new EditApplianceDialog(parentFrame, controller, selectedAppliance);
+            dialog.setVisible(true);
+        }
+    }
+
 
     //Method for editing to display the device
     public void displayAppliances(List<Appliance> appliances) {
