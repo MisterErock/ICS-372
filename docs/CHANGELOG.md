@@ -44,6 +44,8 @@
     - Operation logging
     - Error tracking
     - Debug information
+- Presentation Slides
+    - In person presentation of project prep
 
 ### Technical
 - MVC architecture
@@ -53,3 +55,32 @@
 - Error handling
 - Input validation
 - Logging integration
+
+# Milestone 5
+[Asia Osman, Elijah Nicholson, Neeju Singh]
+### Added
+- Homes Screen View 
+    - Notifications view access
+    - Tutorials view access
+    - Appliance list access
+    - Entry Message
+- Notifications view
+    - Overdue appliances list
+    - Upcoming services list
+    - Last service date
+    - Date missed or upcoming
+- Tutorials View
+    - Tutorials view access
+    - Appliance type headers
+    - Hyper link tutorials
+    - concice descriptions
+## Technical 
+- NotificationController
+- TutorialController
+- Notifical class
+- Tutorial class
+- HomeScreenView
+- NotificationView
+- TutorialView
+
+  
