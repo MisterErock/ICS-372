@@ -2,45 +2,36 @@ package edu.metrostate.model;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Appliance {
-    private String applianceId; // Unique identifier for each appliance
-    private String model; // Appliance model name
-    private String applianceType; // Type of appliance (e.g., Refrigerator)
-    private Date purchaseDate; // Date of purchase
-    private Date lastServiceDate; // Date of last service
-    private Date nextServiceDueDate; // Date for next service
-    private String status; // Status of the appliance (e.g., Active, Inactive)
+    private String applianceId = UUID.randomUUID().toString();
+    private String model;
+    private String applianceType;
+    private Date purchaseDate;
+    private Date lastServiceDate;
+    private Date nextServiceDueDate;
+    private String status;
+    public static final String[] APPLIANCE_TYPES = new String[]{"Refrigerator", "Washing Machine", "Dishwasher", "Dryer", "Oven", "Microwave", "Other"};
 
-    public static final String[] APPLIANCE_TYPES = {
-            "Refrigerator", "Washing Machine", "Dishwasher",
-            "Dryer", "Oven", "Microwave", "Other"
-    };
-
-    // Constructor
     public Appliance(String applianceType, String model, Date purchaseDate) {
-        this.applianceId = UUID.randomUUID().toString(); // Generate a unique ID
         this.applianceType = applianceType;
         this.model = model;
         this.purchaseDate = purchaseDate;
-        this.lastServiceDate = purchaseDate; // Initialize with purchase date
-        this.status = "Active"; // Default status
-        this.nextServiceDueDate = calculateNextServiceDate(); // Calculate next service date
+        this.lastServiceDate = purchaseDate;
+        this.status = "Active";
+        this.nextServiceDueDate = this.calculateNextServiceDate();
     }
 
-    // Calculate the next service date (6 months after the purchase date)
     private Date calculateNextServiceDate() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.purchaseDate);
-        cal.add(Calendar.MONTH, 6); // Add 6 months
+        cal.add(2, 6);
         return cal.getTime();
     }
 
-    // Getters and Setters
     public String getApplianceId() {
-        return applianceId;
+        return this.applianceId;
     }
 
     public void setApplianceId(String applianceId) {
@@ -48,7 +39,7 @@ public class Appliance {
     }
 
     public String getModel() {
-        return model;
+        return this.model;
     }
 
     public void setModel(String model) {
@@ -56,7 +47,7 @@ public class Appliance {
     }
 
     public String getApplianceType() {
-        return applianceType;
+        return this.applianceType;
     }
 
     public void setApplianceType(String applianceType) {
@@ -64,7 +55,7 @@ public class Appliance {
     }
 
     public Date getPurchaseDate() {
-        return purchaseDate;
+        return this.purchaseDate;
     }
 
     public void setPurchaseDate(Date purchaseDate) {
@@ -72,7 +63,7 @@ public class Appliance {
     }
 
     public Date getLastServiceDate() {
-        return lastServiceDate;
+        return this.lastServiceDate;
     }
 
     public void setLastServiceDate(Date lastServiceDate) {
@@ -80,7 +71,7 @@ public class Appliance {
     }
 
     public Date getNextServiceDueDate() {
-        return nextServiceDueDate;
+        return this.nextServiceDueDate;
     }
 
     public void setNextServiceDueDate(Date nextServiceDueDate) {
@@ -88,29 +79,29 @@ public class Appliance {
     }
 
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    @Override
     public String toString() {
-        return applianceType + " - " + model;
+        return this.applianceType + " - " + this.model;
     }
 
-    // equals method for comparing appliances based on their ID
-    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Appliance appliance = (Appliance) o;
-        return Objects.equals(applianceId, appliance.applianceId);
+        if (this == o) {
+            return true;
+        } else if (o != null && this.getClass() == o.getClass()) {
+            Appliance appliance = (Appliance)o;
+            return this.applianceId.equals(appliance.applianceId);
+        } else {
+            return false;
+        }
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(applianceId);
+        return this.applianceId.hashCode();
     }
 }

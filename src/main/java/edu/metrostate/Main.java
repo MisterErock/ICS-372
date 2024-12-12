@@ -30,6 +30,8 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             try {
+
+
                 ApplianceController controller = new ApplianceController();
                 NotificationController notificationController = new NotificationController();
                 TutorialController tutorialController = new TutorialController();  // New TutorialController instance

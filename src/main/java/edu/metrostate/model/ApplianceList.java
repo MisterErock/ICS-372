@@ -7,6 +7,7 @@ import java.util.Optional;
 public class ApplianceList {
     private List<Appliance> appliances = new ArrayList();
 
+
     public ApplianceList() {
     }
 

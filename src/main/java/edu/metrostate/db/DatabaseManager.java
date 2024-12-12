@@ -118,5 +118,7 @@ public class DatabaseManager {
         this.appliances.add(appliance);
     }
 
+
+
 }
 

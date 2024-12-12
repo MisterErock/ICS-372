@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+
 public class NotificationView extends JPanel {
 
     private NotificationController notificationController;
@@ -22,37 +23,37 @@ public class NotificationView extends JPanel {
         // Initialize the notification controller
         this.notificationController = notificationController;
         this.databaseManager = new DatabaseManager();
-
         this.parentFrame = parentFrame;
 
+        setLayout(new BorderLayout()); // Ensure proper layout is used
 
-        //Back button
-        setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel("<html><h1>Notifications</h1></html>");
-        add(titleLabel, BorderLayout.NORTH);
-
+        // Add Title at the Top
+        JLabel titleLabel = new JLabel("<html><h1>Notifications</h1></html>", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        add(titleLabel, BorderLayout.NORTH); // Add the title to the top
 
         // Create the notification list
         notificationList = new JList<>();
         JScrollPane scrollPane = new JScrollPane(notificationList);
-
-        // Add the scroll pane to the panel
-        this.add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER); // Add the scroll pane to the center
 
         // Display the notifications
         displayNotifications();
 
-        if (parentFrame != null) {
-            JButton backButton = new JButton("Back to Home");
-            backButton.addActionListener(e -> {
-                parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(new HomeScreenView(new ApplianceController(), notificationController, new TutorialController(), parentFrame));
-                parentFrame.revalidate();
-            });
-            add(backButton, BorderLayout.SOUTH);
-        }
+        // Bottom Panel with Back Button
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton backButton = new JButton("Back to Home");
+        backButton.addActionListener(e -> {
+            parentFrame.getContentPane().removeAll();
+            parentFrame.getContentPane().add(new HomeScreenView(
+                    new ApplianceController(), notificationController, new TutorialController(), parentFrame));
+            parentFrame.revalidate();
+        });
+        bottomPanel.add(backButton);
+        add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel with the back button
     }
-    // Method to load appliances and display notifications
+    
+
     private void displayNotifications() {
         // Load appliances from the database
         List<Appliance> appliances = databaseManager.loadAppliances();
@@ -63,13 +64,20 @@ public class NotificationView extends JPanel {
         // Create a list model to display notifications
         DefaultListModel<String> listModel = new DefaultListModel<>();
 
-        // Add notifications to the list model
+        // Add notifications to the list model with formatting
         for (Notification notification : notifications) {
-            String applianceInfo = "Appliance: " + notification.getApplianceId();
-            listModel.addElement(applianceInfo + " - " + notification.getMessage());
+            String formattedNotification = String.format(
+                    "<html><div style='padding: 10px; line-height: 1.5;'><b>Appliance:</b> %s<br>%s</div></html>",
+                    notification.getApplianceId(), notification.getMessage()
+            );
+            listModel.addElement(formattedNotification);
         }
 
         // Set the list model to the JList
         notificationList.setModel(listModel);
     }
 }
+
+
+
+

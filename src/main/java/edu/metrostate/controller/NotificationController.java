@@ -29,12 +29,12 @@ public class NotificationController {
 
                 //OLD LOGIC
                 // Appliance is overdue for service
-                String overdueMessage =  appliance.getApplianceType() + "is OVERDUE for service. Last service was on: " + DATE_FORMAT.format(appliance.getLastServiceDate()) +
+                String overdueMessage =  appliance.getApplianceType() + " is OVERDUE for service. Last service was on: " + DATE_FORMAT.format(appliance.getLastServiceDate()) +
                         ". Next service was due on: " + DATE_FORMAT.format(nextServiceDueDate) + ".";
-                notifications.add(new Notification(appliance.getApplianceId(), overdueMessage));
+                notifications.add(new Notification(appliance.getModel(), overdueMessage));
             } else if (isServiceSoon(nextServiceDueDate, currentDate)) {
                 // Appliance is soon for service
-                String serviceSoonMessage = appliance.getApplianceType() + "is due for service soon. Next service is due on: " + DATE_FORMAT.format(nextServiceDueDate) + ".";
+                String serviceSoonMessage = appliance.getApplianceType() + " is due for service soon. Next service is due on: " + DATE_FORMAT.format(nextServiceDueDate) + ".";
                 notifications.add(new Notification(appliance.getApplianceId(), serviceSoonMessage));
             }
         }
